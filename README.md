@@ -9,4 +9,5 @@ WebP format has three major advantages:
 1. Smaller File Sizes
 2. Improved Compression Efficiency
 3. Better Web Performance
+
 ![JPG and PNG Image Converter to WebP by Luc Digital Accolades_](https://github.com/luc-constantin/Image-Converter-to-WebP/assets/56940002/74fefa64-a54b-4ff2-9baf-8f387a2ef4f7)

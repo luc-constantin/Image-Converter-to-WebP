@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div id="titleContainer">
+        <h1>JPG and PNG Image Converter to WebP</h1>
+        <p> For better performance and speed only 10 images per upload are recommended. </p>
+    </div>
+    <label for="imageInput" id="label">Upload Images</label>
+    <input type="file" id="imageInput" accept=".jpg, .jpeg, .png" multiple onchange="displayOriginalImages()">
+    <button onclick="convertToWebP()">Convert to WebP</button>
+    <button id="downloadBtn" onclick="downloadWebP()">Download WebP</button>
+    <button id="startAgainBtn" onclick="startAgain()">Delete Uploaded Images</button>
+    <div id="loader">Converting...</div>
+    <div id="doneMessage">Done. You can Download the Images in webP format by clicking the Download button.</div>
+    <br>
+    <div id="outputContainer"></div>
+    <div id="loadedPicturesContainer"></div> 
+    <br>
+  <hr>
+    
+    <div id="donateContainer">
+        <p>Support my work by donating to PayPal</p>
+        <a class href="https://www.paypal.com/donate/?hosted_button_id=JX5K4CKZWRDVG" target="_blank" rel="noopener noreferrer">Donate</a>
+    </div>
+    <footer>
+        <div id="socialMedia">
+            <a href="https://www.linkedin.com/in/luc-constantin/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://twitter.com/accolades_dev" target="_blank" rel="noopener noreferrer">𝕏 </a>
+            <a href="https://github.com/luc-constantin" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <div id="copyright">
+            <a href="https://accolades.dev"> Digital Accolades - Luc Constantin.</a><p>&copy; <span id="year"></span> All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('year').innerText = new Date().getFullYear();
+    </script>
+    <script defer src="script.js"></script>
+</body>
+</html>

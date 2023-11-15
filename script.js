@@ -53,18 +53,19 @@ function displayOriginalImages() {
     }
 }
 
+let convertedCounter = 0;
 
 function convertToWebP() {
     const loader = document.getElementById('loader');
     const doneMessage = document.getElementById('doneMessage');
     const outputContainer = document.getElementById('outputContainer');
+    const startAgainBtn = document.getElementById('startAgainBtn');
 
     // Clear the webPDataUrls array
     webPDataUrls = [];
 
     loader.style.display = 'block';
     doneMessage.style.display = 'none';
-
 
     // Check if there are no photos
     if (originalImageDataUrls.length === 0) {
@@ -82,15 +83,33 @@ function convertToWebP() {
         const img = new Image();
         img.src = originalImageDataUrls[i];
 
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
+        img.onload = function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
 
-        const context = canvas.getContext('2d');
-        context.drawImage(img, 0, 0, img.width, img.height);
+            const context = canvas.getContext('2d');
+            context.drawImage(img, 0, 0, img.width, img.height);
 
-        const webPDataUrl = canvas.toDataURL('image/webp');
-        webPDataUrls.push(webPDataUrl);
+            const webPDataUrl = canvas.toDataURL('image/webp');
+
+            // Check if the webPDataUrl is not empty before adding to the array
+            if (webPDataUrl.trim() !== '') {
+                webPDataUrls.push(webPDataUrl);
+            }
+
+            pictureCounter++;
+
+            const convertedButton = document.createElement('button');
+            convertedButton.className = 'convertedButton';
+            convertedCounter++;
+            convertedButton.textContent = `${convertedCounter} Picture(s) Converted`;
+            loadedPicturesContainer.appendChild(convertedButton);
+
+            if (downloadBtnClicked) {
+                document.getElementById('newPictureBtn').style.display = pictureCounter < 10 ? 'block' : 'none';
+            }
+        };
     }
 
     setTimeout(function () {
@@ -104,40 +123,46 @@ function convertToWebP() {
             outputContainer.innerHTML = '';
 
             // Show the "Add More Pictures" button
-            document.getElementById('startAgainBtn').style.display = 'block';
+            startAgainBtn.style.marginRight = doneMessage.style.display === 'block' ? '15px' : '0';
+            startAgainBtn.style.display = 'block';
         }, 4000);
     }, 4000);
 }
 
 
+
+
 function downloadWebP() {
     if (webPDataUrls.length > 0) {
-        for (let i = 0; i < webPDataUrls.length; i++) {
-            const a = document.createElement('a');
-            a.href = webPDataUrls[i];
-            a.download = `converted_image_${i + 1}.webp`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+        // Check if the download button has already been clicked
+        if (downloadBtnClicked) {
+            alert('Images have already been downloaded.');
+            return;
+        }
+
+        // Filter out empty data URLs
+        const validWebPDataUrls = webPDataUrls.filter(url => url.trim() !== '');
+
+        if (validWebPDataUrls.length > 0) {
+            for (let i = 0; i < validWebPDataUrls.length; i++) {
+                const a = document.createElement('a');
+                a.href = validWebPDataUrls[i];
+                a.download = `converted_image_${i + 1}.webp`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            // Set the flag to indicate that the download button has been clicked
+            downloadBtnClicked = true;
+        } else {
+            alert('No valid images to download.');
         }
     } else {
         alert('Please convert and add images to download.');
     }
 }
 
-
-function resetForm() {
-    const inputElement = document.getElementById('imageInput');
-    const label = document.getElementById('label');
-    const doneMessage = document.getElementById('doneMessage');
-    const newPictureBtn = document.getElementById('newPictureBtn');
-
-    inputElement.value = ''; // Clear the file input
-    label.textContent = 'Choose up to 10 Images'; // Reset label
-    doneMessage.style.display = 'none'; // Hide the "Done" message
-    newPictureBtn.style.display = 'none'; // Hide the "Add More Pictures" button
-    downloadBtnClicked = false; // Reset the flag
-}
 
 function addNewPictures() {
     resetForm();

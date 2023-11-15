@@ -57,11 +57,14 @@ function displayOriginalImages() {
 function convertToWebP() {
     const loader = document.getElementById('loader');
     const doneMessage = document.getElementById('doneMessage');
-    const newPictureBtn = document.getElementById('newPictureBtn');
     const outputContainer = document.getElementById('outputContainer');
+
+    // Clear the webPDataUrls array
+    webPDataUrls = [];
 
     loader.style.display = 'block';
     doneMessage.style.display = 'none';
+
 
     // Check if there are no photos
     if (originalImageDataUrls.length === 0) {
@@ -96,14 +99,14 @@ function convertToWebP() {
 
         setTimeout(function () {
             doneMessage.style.display = 'none';
-            if (downloadBtnClicked && outputContainer.innerHTML.trim() === '') {
-                newPictureBtn.style.display = pictureCounter < 10 ? 'block' : 'none';
-            }
 
-            // Hide the output container
-            outputContainer.style.display = 'none';
-        }, 4000); 
-    }, 4000); 
+            // Clear the output container
+            outputContainer.innerHTML = '';
+
+            // Show the "Add More Pictures" button
+            document.getElementById('startAgainBtn').style.display = 'block';
+        }, 4000);
+    }, 4000);
 }
 
 
@@ -121,6 +124,7 @@ function downloadWebP() {
         alert('Please convert and add images to download.');
     }
 }
+
 
 function resetForm() {
     const inputElement = document.getElementById('imageInput');
@@ -150,5 +154,10 @@ function addNewPictures() {
 }
 
 function startAgain() {
-    location.reload();
+    const confirmation = window.confirm("Are you sure you want to delete the uploaded photos?");
+    
+    if (confirmation) {
+        location.reload();
+    }
 }
+

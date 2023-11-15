@@ -12,4 +12,4 @@ WebP format has three major advantages:
 
 ![Convert your images](https://github.com/luc-constantin/Image-Converter-to-WebP/assets/56940002/74fefa64-a54b-4ff2-9baf-8f387a2ef4f7) 
 
-___
+____________________________________

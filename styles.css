@@ -40,34 +40,18 @@ button {
     margin: 0 15px;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 #downloadBtn {
     background-color: #f9b406;
-    margin: 0px;
+    margin: 0;
 }
 
-img {
-    max-width: 100%;
-    margin-top: 20px;
-}
-
-#originalImage {
-    border-right: 2px solid #333;
-    padding-right: 10px;
-}
-
-#loader {
-    display: none;
-    color: #333;
-    font-size: 18px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-}
-
+#loader,
 #doneMessage {
     display: none;
     color: #333;
@@ -76,9 +60,18 @@ img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(146, 255, 78);
     padding: 20px;
     border-radius: 10px;
+}
+#loader {
+    background-color:#fff;
+}
+#doneMessage {
+    background-color: rgb(146, 255, 78);
+}
+
+#placeholder {
+    display: inline-block;
 }
 
 #startAgainBtn {
@@ -96,7 +89,7 @@ img {
     z-index: 0;
     background: #e77998;
     overflow: hidden;
-    color: #fff;
+    margin: 0 15px;
 }
 
 #startAgainBtn:hover {
@@ -124,7 +117,8 @@ img {
     flex-direction: column;
 }
 
-.loadedButton {
+.loadedButton,
+.convertedButton {
     background-color: #a3f1c4;
     color: #333;
     padding: 10px 20px;
@@ -142,16 +136,6 @@ img {
 .convertedButton {
     background-color: #3498db;
     color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    margin-top: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    max-width: 50%;
-    display: block;
-    margin: 0 auto 5px;
 }
 
 #donateContainer {
@@ -165,7 +149,6 @@ a {
     color: #2b76c8;
     padding: 10px 20px;
     cursor: pointer;
-    border: none;
     border-radius: 5px;
     margin-top: 10px;
 }
@@ -176,18 +159,22 @@ footer {
     padding: 15px 0 5px 0;
     text-align: center;
     margin-top: 40px;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 #socialMedia {
-    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 }
 
 #socialMedia a {
     color: #fff;
     text-decoration: none;
-    margin: 10px;
+    margin: 0 5px;
     background-color: #3498db;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 #copyright {
@@ -225,6 +212,13 @@ footer {
     .loadedButton {
         padding: 8px 16px;
     }
+
+    #socialMedia a {
+        color: #fff;
+        text-decoration: none;
+        margin: 10px;
+        background-color: #3498db;
+    }
 }
 
 @media (max-width: 480px) {
@@ -245,7 +239,15 @@ footer {
         padding: 8px 12px;
     }
 
-    .loadedButton {
+    .loadedButton,
+    .convertedButton {
         padding: 8px 12px;
+    }
+}
+
+@media (max-width: 350px) {
+    #socialMedia {
+        flex-direction: column;
+        align-items: center;
     }
 }

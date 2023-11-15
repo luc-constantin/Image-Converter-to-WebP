@@ -35,15 +35,13 @@ function displayOriginalImages() {
                     originalImageDataUrls.push(e.target.result);
                     webPDataUrls.push(webPDataUrl);
 
-                    pictureCounter++; 
+                    pictureCounter++;
 
-                    const loadedButton = document.createElement('button');
-                    loadedButton.className = 'loadedButton';
-                    loadedButton.textContent = `${pictureCounter} Picture(s) Added`; 
+                    const loadedButton = createButton('loadedButton', `${pictureCounter} Picture(s) Added`);
                     loadedPicturesContainer.appendChild(loadedButton);
 
                     if (downloadBtnClicked) {
-                        document.getElementById('newPictureBtn').style.display = pictureCounter < 10 ? 'block' : 'none';
+                        toggleNewPictureButton(pictureCounter);
                     }
                 };
             };
@@ -67,14 +65,12 @@ function convertToWebP() {
     loader.style.display = 'block';
     doneMessage.style.display = 'none';
 
-    // Check if there are no photos
     if (originalImageDataUrls.length === 0) {
         alert('NO PICTURE(S) ADDED');
         loader.style.display = 'none';
         return;
     }
 
-    // Clear the output container only if there are no images already
     if (outputContainer.innerHTML.trim() === '') {
         outputContainer.innerHTML = '';
     }
@@ -93,96 +89,77 @@ function convertToWebP() {
 
             const webPDataUrl = canvas.toDataURL('image/webp');
 
-            // Check if the webPDataUrl is not empty before adding to the array
             if (webPDataUrl.trim() !== '') {
                 webPDataUrls.push(webPDataUrl);
             }
 
             pictureCounter++;
 
-            const convertedButton = document.createElement('button');
-            convertedButton.className = 'convertedButton';
-            convertedCounter++;
-            convertedButton.textContent = `${convertedCounter} Picture(s) Converted`;
+            const convertedButton = createButton('convertedButton', `${++convertedCounter} Picture(s) Converted`);
             loadedPicturesContainer.appendChild(convertedButton);
 
             if (downloadBtnClicked) {
-                document.getElementById('newPictureBtn').style.display = pictureCounter < 10 ? 'block' : 'none';
+                toggleNewPictureButton(pictureCounter);
             }
         };
     }
 
-    setTimeout(function () {
+    setTimeout(() => {
         loader.style.display = 'none';
         doneMessage.style.display = 'block';
 
-        setTimeout(function () {
+        setTimeout(() => {
             doneMessage.style.display = 'none';
-
-            // Clear the output container
             outputContainer.innerHTML = '';
-
-            // Show the "Add More Pictures" button
-            startAgainBtn.style.marginRight = doneMessage.style.display === 'block' ? '15px' : '0';
             startAgainBtn.style.display = 'block';
+            invisiblePlaceholder.style.visibility = 'hidden';
         }, 4000);
     }, 4000);
 }
 
-
-
-
 function downloadWebP() {
     if (webPDataUrls.length > 0) {
-        // Check if the download button has already been clicked
         if (downloadBtnClicked) {
             alert('Images have already been downloaded.');
             return;
         }
 
-        // Filter out empty data URLs
         const validWebPDataUrls = webPDataUrls.filter(url => url.trim() !== '');
 
         if (validWebPDataUrls.length > 0) {
-            for (let i = 0; i < validWebPDataUrls.length; i++) {
+            validWebPDataUrls.forEach((url, i) => {
                 const a = document.createElement('a');
-                a.href = validWebPDataUrls[i];
+                a.href = url;
                 a.download = `converted_image_${i + 1}.webp`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-            }
+            });
 
-            // Set the flag to indicate that the download button has been clicked
             downloadBtnClicked = true;
         } else {
             alert('No valid images to download.');
         }
-    } else {
-        alert('Please convert and add images to download.');
-    }
-}
-
-
-function addNewPictures() {
-    resetForm();
-    pictureCounter++;
-
-    if (pictureCounter < 10) {
-        document.getElementById('imageInput').value = ''; // Clear the file input
-        document.getElementById('outputContainer').innerHTML = '';  // Clear the output container
-        document.getElementById('newPictureBtn').style.display = 'none'; // Hide the "Add More Pictures" button
-        downloadBtnClicked = false; // Reset the flag
-    } else {
-        alert('Maximum limit reached (10 pictures).');
     }
 }
 
 function startAgain() {
     const confirmation = window.confirm("Are you sure you want to delete the uploaded photos?");
-    
+
     if (confirmation) {
         location.reload();
+        placeholder.style.display = 'none';
     }
 }
 
+function createButton(className, textContent) {
+    const button = document.createElement('button');
+    button.className = className;
+    button.textContent = textContent;
+    return button;
+}
+
+function toggleNewPictureButton(counter) {
+    const newPictureBtn = document.getElementById('newPictureBtn');
+    newPictureBtn.style.display = counter < 10 ? 'block' : 'none';
+}

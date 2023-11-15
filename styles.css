@@ -139,6 +139,21 @@ img {
     margin: 0 auto 5px;
 }
 
+.convertedButton {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 50%;
+    display: block;
+    margin: 0 auto 5px;
+}
+
 #donateContainer {
     margin-top: 20px;
 }

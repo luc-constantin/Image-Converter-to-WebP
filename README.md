@@ -12,7 +12,7 @@ WebP format has three major advantages:
 
 ![Convert your images](https://github.com/luc-constantin/Image-Converter-to-WebP/assets/56940002/74fefa64-a54b-4ff2-9baf-8f387a2ef4f7) 
 
-<kbd> <br> KeyBinding Button <br> </kbd>]
+<[Click me](#){: .btn}
 ____________________________________
 
 NOTES: The interface incorporates elements such as a loader to indicate ongoing conversion, message that anounce the finishing process, a display for the original and converted images, and buttons for managing the conversion process.

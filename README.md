@@ -15,4 +15,4 @@ WebP format has three major advantages:
 ____________________________________
 
 NOTES: The interface incorporates elements such as a loader to indicate ongoing conversion, message that anounce the finishing process, a display for the original and converted images, and buttons for managing the conversion process.
-For the button creation I used one of [@markodenic](https://github.com/markodenic) project on devhunt that you can find it [here](https://markodenic.com/tools/buttons-generator/?ref=devhunt)
+For the button creation I used one of @markodenic  ([connect with Marko on GitHub](https://github.com/markodenic)) project on devhunt that you can find it [here](https://markodenic.com/tools/buttons-generator/?ref=devhunt)
